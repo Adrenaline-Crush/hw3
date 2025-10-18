@@ -1,0 +1,25 @@
+name: Markdown Formatter
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  markdownlint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+
+      - name: install node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: install markdownlint-cli
+        run: npm install -g markdownlint-cli
+
+      - name: run markdownlint
+        run: markdownlint '**/*.md'
